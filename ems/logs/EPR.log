@@ -1,0 +1,392 @@
+2025-02-21 14:59:03,406 - INFO - Entered into get_db_connection
+2025-02-21 14:59:03,407 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 14:59:03,521 - ERROR -  Error creating employee: 'bool' object is not subscriptable
+2025-02-21 15:00:28,296 - INFO - Entered into get_db_connection
+2025-02-21 15:00:28,296 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:00:57,868 - ERROR -  Error creating employee: duplicate key value violates unique constraint "employees_email_key"
+DETAIL:  Key (email)=(user@example.com) already exists.
+
+2025-02-21 15:01:09,641 - INFO - Entered into get_db_connection
+2025-02-21 15:01:09,641 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:08:59,889 - INFO - Entered into get_db_connection
+2025-02-21 15:08:59,889 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:19:02,646 - ERROR -  Error creating employee: 'bool' object is not subscriptable
+2025-02-21 15:34:07,289 - INFO - Entered into get_db_connection
+2025-02-21 15:34:07,290 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:34:07,376 - INFO - Entered into get_db_connection
+2025-02-21 15:34:07,376 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:34:07,574 - INFO -  Employee Deleted: ID=21
+2025-02-21 15:34:16,090 - INFO - Entered into get_db_connection
+2025-02-21 15:34:16,090 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:34:16,191 - INFO - Entered into get_db_connection
+2025-02-21 15:34:16,191 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:34:16,277 - ERROR -  Error creating employee: column "user123" does not exist
+LINE 1: ...mployee_id FROM employees WHERE employees.email = user123@ex...
+                                                             ^
+
+2025-02-21 15:36:26,848 - INFO - Entered into get_db_connection
+2025-02-21 15:36:26,848 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:36:26,932 - INFO - Entered into get_db_connection
+2025-02-21 15:36:26,933 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:36:27,017 - INFO -  Employee Deleted: ID=22
+2025-02-21 15:36:31,548 - INFO - Entered into get_db_connection
+2025-02-21 15:36:31,548 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:36:31,642 - INFO - Entered into get_db_connection
+2025-02-21 15:36:31,642 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:36:31,716 - ERROR -  Error creating employee: not all arguments converted during string formatting
+2025-02-21 15:38:20,886 - INFO - Entered into get_db_connection
+2025-02-21 15:38:20,886 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:38:20,961 - INFO - Entered into get_db_connection
+2025-02-21 15:38:20,961 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:38:21,049 - INFO -  Employee Deleted: ID=23
+2025-02-21 15:38:25,608 - INFO - Entered into get_db_connection
+2025-02-21 15:38:25,609 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:38:25,707 - INFO - Entered into get_db_connection
+2025-02-21 15:38:25,707 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:38:25,801 - ERROR -  Error creating employee: not all arguments converted during string formatting
+2025-02-21 15:39:07,724 - INFO - Entered into get_db_connection
+2025-02-21 15:39:07,724 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:39:07,802 - INFO - Entered into get_db_connection
+2025-02-21 15:39:07,802 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:39:07,879 - INFO -  Employee Deleted: ID=24
+2025-02-21 15:39:11,335 - INFO - Entered into get_db_connection
+2025-02-21 15:39:11,336 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:39:11,432 - INFO - Entered into get_db_connection
+2025-02-21 15:39:11,432 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:39:11,619 - ERROR -  Error creating employee: column "user123@example.com" does not exist
+LINE 1: ...mployee_id FROM employees WHERE employees.email = "user123@e...
+                                                             ^
+
+2025-02-21 15:42:45,399 - INFO - Entered into get_db_connection
+2025-02-21 15:42:45,399 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:42:45,484 - INFO - Entered into get_db_connection
+2025-02-21 15:42:45,485 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:42:45,686 - INFO -  Employee Deleted: ID=25
+2025-02-21 15:42:49,443 - INFO - Entered into get_db_connection
+2025-02-21 15:42:49,443 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:42:49,551 - INFO - Entered into get_db_connection
+2025-02-21 15:42:49,552 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:42:49,658 - INFO -  Employee Created: ID=26, Name=string, Dept=1, Role=1
+2025-02-21 15:45:11,787 - INFO - Entered into get_db_connection
+2025-02-21 15:45:11,787 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:45:11,873 - INFO - Entered into get_db_connection
+2025-02-21 15:45:11,874 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 15:45:12,075 - INFO -  Employee Updated: ID=26
+2025-02-21 17:34:32,729 - INFO - Entered into get_db_connection
+2025-02-21 17:34:32,729 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 17:34:32,863 - INFO - Entered into get_db_connection
+2025-02-21 17:34:32,863 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 17:34:33,000 - INFO -  Employee Created: ID=27, Name=deepi, Dept=1, Role=1
+2025-02-21 17:57:33,817 - INFO - Entered into get_db_connection
+2025-02-21 17:57:33,818 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 17:59:05,890 - INFO - Entered into get_db_connection
+2025-02-21 17:59:05,890 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 18:03:07,674 - INFO - Entered into get_db_connection
+2025-02-21 18:03:07,674 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-21 18:06:34,642 - INFO - Entered into get_db_connection
+2025-02-21 18:06:34,643 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:08:29,600 - INFO - Entered into get_db_connection
+2025-02-24 00:08:29,601 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:08:29,706 - ERROR -  Error creating employee: insert or update on table "employees" violates foreign key constraint "employees_role_id_fkey"
+DETAIL:  Key (role_id)=(5) is not present in table "roles".
+
+2025-02-24 00:09:03,077 - INFO - Entered into get_db_connection
+2025-02-24 00:09:03,078 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:09:03,168 - INFO - Entered into get_db_connection
+2025-02-24 00:09:03,168 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:09:03,249 - INFO -  Employee Created: ID=29, Name=Harish, Dept=3, Role=1
+2025-02-24 00:11:06,320 - INFO - Entered into get_db_connection
+2025-02-24 00:11:06,320 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:11:06,400 - INFO - Entered into get_db_connection
+2025-02-24 00:11:06,400 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:11:06,484 - INFO -  Employee Deleted: ID=29
+2025-02-24 00:11:41,970 - INFO - Entered into get_db_connection
+2025-02-24 00:11:41,971 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:11:42,199 - INFO - Entered into get_db_connection
+2025-02-24 00:11:42,199 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:11:42,279 - INFO -  Employee Deleted: ID=27
+2025-02-24 00:11:53,573 - INFO - Entered into get_db_connection
+2025-02-24 00:11:53,573 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:11:53,670 - INFO - Entered into get_db_connection
+2025-02-24 00:11:53,670 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:11:53,745 - INFO -  Employee Deleted: ID=17
+2025-02-24 00:12:04,159 - INFO - Entered into get_db_connection
+2025-02-24 00:12:04,160 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:12:04,244 - WARNING -  Employee Not Found for Deletion: ID=17
+2025-02-24 00:12:13,431 - INFO - Entered into get_db_connection
+2025-02-24 00:12:13,431 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:12:13,514 - INFO - Entered into get_db_connection
+2025-02-24 00:12:13,514 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:12:13,593 - INFO -  Employee Deleted: ID=18
+2025-02-24 00:13:59,952 - INFO - Entered into get_db_connection
+2025-02-24 00:13:59,952 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:14:00,041 - INFO - Entered into get_db_connection
+2025-02-24 00:14:00,041 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 00:14:00,122 - INFO -  Employee Updated: ID=26
+2025-02-24 00:14:51,111 - INFO - Entered into get_db_connection
+2025-02-24 00:14:51,111 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 10:22:00,203 - INFO - Entered into get_db_connection
+2025-02-24 10:22:00,204 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 10:22:00,334 - INFO - Entered into get_db_connection
+2025-02-24 10:22:00,334 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 10:22:00,482 - INFO -  Employee Created: ID=30, Name=string, Dept=2, Role=1
+2025-02-24 10:24:39,043 - INFO - Entered into get_db_connection
+2025-02-24 10:24:39,043 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 10:28:44,188 - INFO - Entered into get_db_connection
+2025-02-24 10:28:44,188 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 10:28:44,301 - INFO - Entered into get_db_connection
+2025-02-24 10:28:44,302 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-02-24 10:28:44,464 - INFO -  Employee Updated: ID=110
+2025-03-18 21:10:28,822 - INFO - Entered into get_db_connection
+2025-03-18 21:10:28,825 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-03-18 21:10:29,325 - INFO - Entered into get_db_connection
+2025-03-18 21:10:29,325 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-03-18 21:10:29,454 - INFO -  Employee Created: ID=31, Name=deena123, Dept=1, Role=1
+2025-03-18 21:13:36,634 - INFO - Entered into get_db_connection
+2025-03-18 21:13:36,634 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-03-18 21:14:12,766 - INFO - Entered into get_db_connection
+2025-03-18 21:14:12,766 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-03-18 21:14:12,888 - INFO - Entered into get_db_connection
+2025-03-18 21:14:12,888 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-03-18 21:14:13,008 - INFO -  Employee Updated: ID=31
+2025-03-18 21:15:29,273 - INFO - Entered into get_db_connection
+2025-03-18 21:15:29,273 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-03-18 21:15:29,385 - INFO - Entered into get_db_connection
+2025-03-18 21:15:29,385 - INFO - host:localhost,
+            port=5432,
+            user=postgres,
+            password=sql@123,
+            database=postgres
+2025-03-18 21:15:29,534 - INFO -  Employee Deleted: ID=31
