@@ -1,0 +1,19 @@
+2025-03-24 23:46:39 - INFO - File record saved: <scripts.models.database_model.UploadedFile object at 0x000001CC7D059250>
+2025-03-24 23:46:39 - INFO - File uploaded: deena_hello.txt, stored at ./app/uploaded_files\deena_hello.txt
+2025-03-24 23:46:39 - INFO - 4 changes detected
+2025-03-24 23:46:40 - INFO - 1 change detected
+2025-03-24 23:46:54 - INFO - Files retrieved for name: deena
+2025-03-24 23:48:16 - INFO - 1 change detected
+2025-03-24 23:48:20 - INFO - 1 change detected
+2025-03-24 23:48:21 - INFO - 1 change detected
+2025-03-24 23:48:28 - INFO - 3 changes detected
+2025-03-25 00:03:45 - INFO - File record saved: <scripts.models.database_model.UploadedFile object at 0x000001E215B67740>
+2025-03-25 00:03:45 - INFO - File uploaded: arun_data engineer.txt, stored at ./app/uploaded_files\arun_data engineer.txt
+2025-03-25 00:03:57 - INFO - Files retrieved for name: arun
+2025-03-25 11:26:45 - INFO - File record saved: <scripts.models.database_model.UploadedFile object at 0x000001D66B951D00>
+2025-03-25 11:26:45 - INFO - File uploaded: deena_hello.txt, stored at /app/uploaded_files\deena_hello.txt
+2025-03-25 11:26:56 - INFO - Files retrieved for name: deena
+2025-03-25 11:31:30 - INFO - File record saved: <scripts.models.database_model.UploadedFile object at 0x000002D20CBB1400>
+2025-03-25 11:31:30 - INFO - File uploaded: jai_github token.txt, stored at /app_data/uploads\jai_github token.txt
+2025-03-25 11:34:12 - INFO - File record saved: <scripts.models.database_model.UploadedFile object at 0x00000226DECCBE90>
+2025-03-25 11:34:12 - INFO - File uploaded: sanjai_hello.txt, stored at app_data/uploads\sanjai_hello.txt
