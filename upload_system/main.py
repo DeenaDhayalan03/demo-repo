@@ -4,6 +4,6 @@ from scripts.services.upload_service import router
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="FastAPI File Upload Service")
+app = FastAPI(root_path="/upload_system")
 
 app.include_router(router)

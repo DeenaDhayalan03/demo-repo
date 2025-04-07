@@ -17,3 +17,6 @@
 2025-03-25 11:31:30 - INFO - File uploaded: jai_github token.txt, stored at /app_data/uploads\jai_github token.txt
 2025-03-25 11:34:12 - INFO - File record saved: <scripts.models.database_model.UploadedFile object at 0x00000226DECCBE90>
 2025-03-25 11:34:12 - INFO - File uploaded: sanjai_hello.txt, stored at app_data/uploads\sanjai_hello.txt
+2025-03-25 06:47:28 - INFO - File record saved: <scripts.models.database_model.UploadedFile object at 0x709b6dfbdeb0>
+2025-03-25 06:47:28 - INFO - File uploaded: guru_lines.py, stored at app_data/uploads/guru_lines.py
+2025-03-25 06:47:38 - INFO - Files retrieved for name: guru
