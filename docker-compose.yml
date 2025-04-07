@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  ems:
+    build:
+      context: ./ems
+    container_name: ems-container
+    ports:
+      - "8000:8000"
+    restart: always
+
+
+  upload_system:
+    build:
+      context: ./upload_system
+    container_name: upload-system-container
+    ports:
+      - "8001:8001"
+    restart: always
+    volumes:
+      - upload-data:/app/uploads
+
+volumes:
+  upload-data:
+
