@@ -2,23 +2,22 @@ import docker
 import re
 import os
 import tempfile
-from fastapi import HTTPException
+from fastapi import HTTPException, Depends, Request
 from typing import Dict, Any
-
 from pip._internal.vcs import git
-
+from fastapi.security import OAuth2PasswordBearer
 from scripts.models.image_model import ImageBuildRequest, ImageRemoveRequest, ImageGithubBuildRequest
 from scripts.constants.app_constants import *
 from scripts.constants.app_configuration import settings
+from scripts.utils.jwt_utils import get_current_user_from_token
 
 client = docker.from_env()
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 def is_valid_docker_tag(tag: str) -> bool:
-
     return bool(re.match(r"^[a-z0-9]+([._-]?[a-z0-9]+)*(\/[a-z0-9]+([._-]?[a-z0-9]+)*)*(\:[a-zA-Z0-9_.-]+)?$", tag))
 
-def build_image(data: ImageBuildRequest):
-
+def build_image(data: ImageBuildRequest, token: str = Depends(oauth2_scheme)):
     try:
         build_args = data.dict(exclude_unset=True)
 
@@ -32,6 +31,9 @@ def build_image(data: ImageBuildRequest):
         else:
             build_args["tag"] = settings.DEFAULT_DOCKER_TAG
 
+        user = get_current_user_from_token(token)
+        user_id = user.username
+
         image, _ = client.images.build(**build_args)
 
         return {
@@ -44,7 +46,7 @@ def build_image(data: ImageBuildRequest):
         raise HTTPException(status_code=500, detail=IMAGE_BUILD_FAILURE)
 
 
-def build_image_from_github(data: ImageGithubBuildRequest):
+def build_image_from_github(data: ImageGithubBuildRequest, token: str = Depends(oauth2_scheme)):
     try:
         temp_dir = tempfile.mkdtemp()
         repo_url = data.github_url
@@ -62,6 +64,9 @@ def build_image_from_github(data: ImageGithubBuildRequest):
             "dockerfile": dockerfile_path,
             "tag": data.tag
         }
+
+        user = get_current_user_from_token(token)
+        user_id = user.username
 
         image, _ = client.images.build(**build_args)
 
@@ -84,9 +89,11 @@ def build_image_from_github(data: ImageGithubBuildRequest):
         raise HTTPException(status_code=500, detail=IMAGE_BUILD_FAILURE)
 
 
-def list_images(name: str = None, all: bool = False, filters: Dict[str, Any] = None):
-
+def list_images(name: str = None, all: bool = False, filters: Dict[str, Any] = None, token: str = Depends(oauth2_scheme)):
     try:
+        user = get_current_user_from_token(token)
+        user_id = user.username
+
         kwargs = {}
         if name is not None:
             kwargs["name"] = name
@@ -105,17 +112,23 @@ def list_images(name: str = None, all: bool = False, filters: Dict[str, Any] = N
     except Exception as e:
         raise HTTPException(status_code=500, detail=IMAGE_LIST_RETRIEVED)
 
-def dockerhub_login(username: str, password: str):
 
+def dockerhub_login(username: str, password: str, token: str = Depends(oauth2_scheme)):
     try:
+        user = get_current_user_from_token(token)
+        user_id = user.username
+
         client.login(username=username, password=password)
         return {"message": AUTH_LOGIN_SUCCESS}
     except Exception as e:
         raise HTTPException(status_code=401, detail=AUTH_LOGIN_FAILURE)
 
-def push_image(local_tag: str, remote_repo: str):
 
+def push_image(local_tag: str, remote_repo: str, token: str = Depends(oauth2_scheme)):
     try:
+        user = get_current_user_from_token(token)
+        user_id = user.username
+
         image = client.images.get(local_tag)
         image.tag(remote_repo)
         result = client.images.push(remote_repo)
@@ -131,9 +144,12 @@ def push_image(local_tag: str, remote_repo: str):
     except Exception:
         raise HTTPException(status_code=500, detail=IMAGE_PUSH_FAILURE)
 
-def pull_image(repository: str, local_tag: str = None):
 
+def pull_image(repository: str, local_tag: str = None, token: str = Depends(oauth2_scheme)):
     try:
+        user = get_current_user_from_token(token)
+        user_id = user.username
+
         image = client.images.pull(repository)
 
         if local_tag:
@@ -152,9 +168,12 @@ def pull_image(repository: str, local_tag: str = None):
     except Exception:
         raise HTTPException(status_code=500, detail=IMAGE_PULL_FAILURE)
 
-def remove_image(image_name: str, params: ImageRemoveRequest):
 
+def remove_image(image_name: str, params: ImageRemoveRequest, token: str = Depends(oauth2_scheme)):
     try:
+        user = get_current_user_from_token(token)
+        user_id = user.username
+
         opts = params.dict(exclude_unset=True)
         client.images.remove(image=image_name, **opts)
 

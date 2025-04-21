@@ -1,14 +1,14 @@
 from fastapi import HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
-from scripts.models.jwt_model import UserSignupRequest, Token
+from scripts.models.jwt_model import UserSignupRequest, Token, UserLoginRequest, UserLoginResponse
 from scripts.utils.jwt_utils import create_user_token
 from scripts.utils.mongo_utils import MongoDBConnection
 from scripts.logging.logger import logger
 from passlib.context import CryptContext
 
 mongodb = MongoDBConnection()
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 def signup_user_handler(user: UserSignupRequest) -> Token:
     users_collection = mongodb.get_collection("users")
@@ -26,21 +26,22 @@ def signup_user_handler(user: UserSignupRequest) -> Token:
 
     new_user = {
         "username": user.username,
-        "password": hashed_password
+        "password": hashed_password,
+        "role": user.role
     }
     users_collection.insert_one(new_user)
 
     logger.info(f"User '{user.username}' registered successfully")
 
-    access_token = create_user_token(user.username)
-    return Token(access_token=access_token)
+    access_token = create_user_token(user.username, user.role)
+    return Token(access_token=access_token, token_type="bearer", expires_in=3600)  # 1-hour expiration
 
 
-def login_user_handler(form_data: OAuth2PasswordRequestForm) -> Token:
+def login_user_handler(user_login: UserLoginRequest) -> UserLoginResponse:
     users_collection = mongodb.get_collection("users")
 
-    username = form_data.username
-    password = form_data.password
+    username = user_login.username
+    password = user_login.password
 
     user_record = users_collection.find_one({"username": username})
 
@@ -59,12 +60,16 @@ def login_user_handler(form_data: OAuth2PasswordRequestForm) -> Token:
         )
 
     logger.info(f"User '{username}' authenticated successfully")
-    access_token = create_user_token(username)
-    return Token(access_token=access_token)
+
+    access_token = create_user_token(username, user_record["role"])
+    return UserLoginResponse(
+        access_token=access_token,
+        token_type="bearer",
+        expires_in=3600
+    )
 
 
 def logout_user_handler(username: str):
-
     if not username:
         logger.warning("Logout failed: No username provided")
         raise HTTPException(

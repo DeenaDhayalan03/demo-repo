@@ -33,7 +33,7 @@ mongo = MongoDBConnection()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-def run_container_advanced(data: ContainerRunAdvancedRequest, token: str):
+def run_container_advanced(data: ContainerRunAdvancedRequest, token: str = Depends(oauth2_scheme)):
     try:
         kwargs = data.dict(exclude_unset=True)
         image = kwargs.pop("image")
@@ -68,6 +68,9 @@ def list_containers_with_filters(params: ContainerListRequest, token: str = Depe
 
         user = get_current_user_from_token(token)
 
+        if user.role != "Admin":
+            raise HTTPException(status_code=403, detail="You do not have permission to access all containers.")
+
         containers = client.containers.list(**kwargs)
 
         return [
@@ -89,6 +92,9 @@ def stop_container(name: str, timeout: float = None, token: str = Depends(oauth2
 
         user = get_current_user_from_token(token)
 
+        if user.role != "Admin":
+            raise HTTPException(status_code=403, detail="You do not have permission to stop containers.")
+
         container.stop(**stop_args)
         return {"message": CONTAINER_STOP_SUCCESS}
     except NotFound:
@@ -102,6 +108,9 @@ def start_container(name: str, token: str = Depends(oauth2_scheme)):
         container = client.containers.get(name)
 
         user = get_current_user_from_token(token)
+
+        if user.role != "Admin":
+            raise HTTPException(status_code=403, detail="You do not have permission to start containers.")
 
         container.start()
         return {"message": CONTAINER_START_SUCCESS}
@@ -142,6 +151,9 @@ def remove_container_with_params(name: str, params: ContainerRemoveRequest, toke
         opts = params.dict(exclude_unset=True)
 
         user = get_current_user_from_token(token)
+
+        if user.role != "Admin":
+            raise HTTPException(status_code=403, detail="You do not have permission to remove containers.")
 
         container.remove(**opts)
         return {

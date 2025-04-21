@@ -27,4 +27,3 @@ class UserLoginResponse(BaseModel):
     access_token: str = Field(..., description="JWT access token")
     token_type: str = Field(..., description="Type of the token (bearer)")
     expires_in: int = Field(..., description="Expiration time of the access token in seconds")
-

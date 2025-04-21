@@ -1,13 +1,13 @@
-from fastapi import APIRouter, Depends, status, HTTPException
-from fastapi.security import OAuth2PasswordRequestForm
-from scripts.models.jwt_model import UserSignupRequest, Token
+from fastapi import APIRouter, Depends, HTTPException
 from scripts.handlers.jwt_handler import signup_user_handler, login_user_handler, logout_user_handler
+from scripts.models.jwt_model import UserSignupRequest, Token, UserLoginRequest, UserLoginResponse
 from scripts.constants.api_endpoints import Endpoints
+from scripts.logging.logger import logger
 from fastapi.security import OAuth2PasswordBearer
 from scripts.utils.jwt_utils import decode_access_token
-from scripts.logging.logger import logger
 
-authentication_router = APIRouter()
+auth_router = APIRouter()
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login/")
 
 
@@ -17,25 +17,20 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         raise HTTPException(status_code=401, detail="Invalid or expired token")
     return username
 
-@authentication_router.post(Endpoints.AUTH_SIGNUP, response_model=Token, status_code=status.HTTP_201_CREATED)
-def signup_view(user: UserSignupRequest):
 
-    logger.info(f"Attempting signup for user: {user.username}")
-    result = signup_user_handler(user)
-    logger.info(f"User '{user.username}' signed up successfully")
-    return result
+@auth_router.post(Endpoints.AUTH_SIGNUP)
+def signup_user(data: UserSignupRequest) -> Token:
+    logger.info(f"User '{data.username}' is signing up with role: {data.role}")
+    return signup_user_handler(data)
 
-@authentication_router.post(Endpoints.AUTH_LOGIN, response_model=Token)
-def login_view(form_data: OAuth2PasswordRequestForm = Depends()):
 
-    logger.info(f"User '{form_data.username}' attempting login")
-    result = login_user_handler(form_data)
-    logger.info(f"User '{form_data.username}' logged in successfully")
-    return result
+@auth_router.post(Endpoints.AUTH_LOGIN)
+def login_user(data: UserLoginRequest) -> UserLoginResponse:
+    logger.info(f"User '{data.username}' is attempting to log in.")
+    return login_user_handler(data)
 
-@authentication_router.post(Endpoints.AUTH_LOGOUT, status_code=status.HTTP_200_OK)
-def logout_view(username: str = Depends(get_current_user)):
-    logger.info(f"User '{username}' attempting logout")
-    result = logout_user_handler(username)
-    logger.info(f"User '{username}' logged out successfully")
-    return result
+
+@auth_router.post(Endpoints.AUTH_LOGOUT)
+def logout_user(username: str = Depends(get_current_user)):
+    logger.info(f"User '{username}' is logging out.")
+    return logout_user_handler(username)

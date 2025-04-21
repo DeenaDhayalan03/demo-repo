@@ -1,6 +1,5 @@
 from pydantic_settings import BaseSettings
 
-
 class Settings(BaseSettings):
 
     API_HOST: str
@@ -16,12 +15,9 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
-
-
     DEFAULT_MAX_CONTAINERS_PER_HOUR: int
 
     class Config:
         env_file = ".env"
-
 
 settings = Settings()

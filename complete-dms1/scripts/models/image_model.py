@@ -1,9 +1,9 @@
-from pydantic import BaseModel,ConfigDict
+from pydantic import BaseModel, ConfigDict
 from typing import Optional, Union, Any, Dict, List
 
 class ImageGithubBuildRequest(BaseModel):
     github_url: str
-    dockerfile_path: Optional[str] = "Dockerfile"  # default path
+    dockerfile_path: Optional[str] = "Dockerfile"
     tag: Optional[str] = "default:latest"
 
 
@@ -21,7 +21,7 @@ class ImageBuildRequest(BaseModel):
     forcerm: Optional[bool] = False
     dockerfile: Optional[str] = None
     buildargs: Optional[Dict[str, Any]] = None
-    container_limits: Optional[Dict[str, Any]] = None  # Simplified for now
+    container_limits: Optional[Dict[str, Any]] = None
     shmsize: Optional[int] = None
     labels: Optional[Dict[str, Any]] = None
     cache_from: Optional[List[str]] = None
@@ -41,7 +41,6 @@ class ImageListRequest(BaseModel):
     filters: Optional[Dict[str, Any]] = None
 
 
-
 class ImageRemoveRequest(BaseModel):
     force: Optional[bool] = False
     noprune: Optional[bool] = False
@@ -51,12 +50,13 @@ class DockerLoginRequest(BaseModel):
     username: str
     password: str
 
+
 class ImagePushRequest(BaseModel):
     local_tag: str
     remote_repo: str
 
+
 class ImagePullRequest(BaseModel):
     repository: str
-    local_tag: str = None
-
+    local_tag: Optional[str] = None
 

@@ -1,72 +1,53 @@
-from fastapi import APIRouter, Query, Body, Depends, HTTPException
-from fastapi.security import OAuth2PasswordBearer
-from scripts.handlers.image_handler import *
-from scripts.models.image_model import *
+from fastapi import APIRouter, Depends
+from scripts.models.image_model import ImageBuildRequest, ImageRemoveRequest, ImageGithubBuildRequest
 from scripts.constants.api_endpoints import Endpoints
+from scripts.handlers.image_handler import ( build_image, build_image_from_github,
+remove_image, list_images, pull_image, push_image, dockerhub_login)
 from scripts.logging.logger import logger
-from scripts.utils.jwt_utils import decode_access_token
+from fastapi.security import OAuth2PasswordBearer
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 image_router = APIRouter()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login/")
+
+@docker_router.post(Endpoints.IMAGE_BUILD_ADVANCED)
+def build_image_service(data: ImageBuildRequest, token: str = Depends(oauth2_scheme)):
+    logger.info(f"User is attempting to build an image with tag: {data.tag}")
+    return build_image(data, token)
 
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
-    username = decode_access_token(token)
-    if not username:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-    return username
+@docker_router.post(Endpoints.IMAGE_BUILD_FROM_GITHUB)
+def build_image_from_github_service(data: ImageGithubBuildRequest, token: str = Depends(oauth2_scheme)):
+    logger.info(f"User is attempting to build an image from GitHub repository: {data.github_url}")
+    return build_image_from_github(data, token)
 
 
-@image_router.post(Endpoints.IMAGE_BUILD_ADV)
-def build_image_with_kwargs(data: ImageBuildRequest, username: str = Depends(get_current_user)):
-    logger.info(f"User '{username}' is building Docker image with data: {data.dict(exclude_unset=True)}")
-    return build_image(data)
+@docker_router.get(Endpoints.IMAGE_LIST)
+def list_images_service(name: str = None, all: bool = False, filters: dict = None, token: str = Depends(oauth2_scheme)):
+    logger.info(f"User is listing Docker images with filters: {filters}")
+    return list_images(name, all, filters, token)
 
 
-@image_router.post(Endpoints.IMAGE_GITHUB_BUILD)
-def build_image_from_github_view(
-    request: ImageGithubBuildRequest,
-    username: str = Depends(get_current_user)
-):
-    logger.info(f"User '{username}' is building Docker image from GitHub repository: {request.github_url}")
-    return build_image_from_github(request)
+@docker_router.post(Endpoints.DOCKER_REGISTRY_LOGIN)
+def dockerhub_login_service(username: str, password: str, token: str = Depends(oauth2_scheme)):
+    logger.info(f"User is attempting to login to DockerHub with username: {username}")
+    return dockerhub_login(username, password, token)
 
 
-@image_router.post(Endpoints.IMAGE_LIST)
-def list_images_advanced(filters: ImageListRequest = Body(...), username: str = Depends(get_current_user)):
-    logger.info(f"User '{username}' is listing Docker images with filters: {filters.dict(exclude_unset=True)}")
-    return list_images(
-        name=filters.name,
-        all=filters.all,
-        filters=filters.filters
-    )
+@docker_router.post(Endpoints.IMAGE_PUSH)
+def push_image_service(local_tag: str, remote_repo: str, token: str = Depends(oauth2_scheme)):
+    logger.info(f"User is attempting to push image with tag: {local_tag} to remote repository: {remote_repo}")
+    return push_image(local_tag, remote_repo, token)
 
 
-@image_router.post(Endpoints.DOCKER_LOGIN)
-def dockerhub_login_view(data: DockerLoginRequest, username: str = Depends(get_current_user)):
-    logger.info(f"User '{username}' is logging into DockerHub with username: {data.username}")
-    return dockerhub_login(data.username, data.password)
+@docker_router.post(Endpoints.IMAGE_PULL)
+def pull_image_service(repository: str, local_tag: str = None, token: str = Depends(oauth2_scheme)):
+    logger.info(f"User is attempting to pull image from repository: {repository}")
+    return pull_image(repository, local_tag, token)
 
 
-@image_router.post(Endpoints.IMAGE_PUSH)
-def push_image_view(request: ImagePushRequest, username: str = Depends(get_current_user)):
-    logger.info(
-        f"User '{username}' is pushing image from local tag '{request.local_tag}' to remote repo '{request.remote_repo}'")
-    return push_image(request.local_tag, request.remote_repo)
-
-
-@image_router.post(Endpoints.IMAGE_PULL)
-def pull_image_view(request: ImagePullRequest, username: str = Depends(get_current_user)):
-    logger.info(f"User '{username}' is pulling image from '{request.repository}' with tag '{request.local_tag}'")
-    return pull_image(request.repository, request.local_tag)
-
-
-@image_router.delete(Endpoints.IMAGE_DELETE)
-def delete_image(
-    image_name: str = Query(..., description="Full image name with optional tag"),
-    params: ImageRemoveRequest = Body(...),
-    username: str = Depends(get_current_user),
-):
-    logger.info(f"User '{username}' is removing image '{image_name}' with params: {params.dict(exclude_unset=True)}")
-    return remove_image(image_name, params)
+@docker_router.delete(Endpoints.IMAGE_DELETE)
+def remove_image_service(image_name: str, params: ImageRemoveRequest, token: str = Depends(oauth2_scheme)):
+    logger.info(f"User is attempting to remove image with name: {image_name}")
+    return remove_image(image_name, params, token)
