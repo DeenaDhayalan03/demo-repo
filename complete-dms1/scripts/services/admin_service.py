@@ -22,28 +22,28 @@ def admin_required(request: Request):
     return user
 
 
-@user_router.get(Endpoints.ADMIN_USERS_LIST, status_code=status.HTTP_200_OK)
+@admin_router.get(Endpoints.ADMIN_USERS_LIST, status_code=status.HTTP_200_OK)
 def list_users(user: dict = Depends(admin_required)):
 
     logger.info("Request to fetch all users")
     return list_all_users(user)
 
 
-@user_router.get(Endpoints.ADMIN_USER_DETAILS, status_code=status.HTTP_200_OK)
+@admin_router.get(Endpoints.ADMIN_USER_DETAILS, status_code=status.HTTP_200_OK)
 def get_user_info(username: str, user: dict = Depends(admin_required)):
 
     logger.info(f"Request to fetch details of user '{username}'")
     return get_user_details(username, user)
 
 
-@user_router.delete(Endpoints.ADMIN_USER_DELETE, status_code=status.HTTP_200_OK)
+@admin_router.delete(Endpoints.ADMIN_USER_DELETE, status_code=status.HTTP_200_OK)
 def delete_user_account(username: str, user: dict = Depends(admin_required)):
 
     logger.info(f"Request to delete user '{username}'")
     return delete_user(username, user)
 
 
-@user_router.get(Endpoints.ADMIN_CONTAINERS_LIST, status_code=status.HTTP_200_OK)
+@admin_router.get(Endpoints.ADMIN_CONTAINERS_LIST, status_code=status.HTTP_200_OK)
 def list_containers(user: dict = Depends(admin_required)):
 
     logger.info("Request to fetch all containers")
