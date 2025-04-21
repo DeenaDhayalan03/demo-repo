@@ -19,6 +19,13 @@ AUTH_REQUIRED = "Authentication is required to access this resource."
 AUTH_FORBIDDEN = "You do not have permission to perform this action."
 INVALID_CREDENTIALS = "Invalid username or password."
 
+TOKEN_EXPIRED = "The token has expired. Please log in again."
+INVALID_TOKEN = "Invalid or malformed token."
+
+RATE_LIMIT_EXCEEDED = "Rate limit exceeded. Please try again later."
+RATE_LIMIT_SUCCESS = "Rate limit for user successfully updated."
+RATE_LIMIT_UPDATED = "User's rate limit successfully updated by admin."
+
 IMAGE_BUILD_SUCCESS = "Docker image built successfully."
 IMAGE_BUILD_FAILURE = "Failed to build Docker image."
 IMAGE_PUSH_SUCCESS = "Docker image pushed successfully."
@@ -62,3 +69,22 @@ STATUS_OK = "Request processed successfully."
 STATUS_CREATED = "Resource created successfully."
 STATUS_CONFLICT = "Request conflicts with existing data."
 STATUS_INTERNAL_ERROR = "An unexpected error occurred. Please try again."
+
+ADMIN_ACTION_SUCCESS = "Admin action successfully performed."
+ADMIN_ACTION_FAILED = "Admin action could not be completed."
+
+USER_CREATED_SUCCESS = "User created successfully."
+USER_UPDATED_SUCCESS = "User updated successfully."
+USER_DELETED_SUCCESS = "User deleted successfully."
+USER_NOT_FOUND = "User not found."
+USER_ACTION_FAILED = "User action failed."
+
+USER_CONTAINERS_RETRIEVED = "User's containers retrieved successfully."
+USER_CONTAINERS_ACCESS_DENIED = "You do not have permission to access other users' containers."
+USER_MAX_CONTAINERS_REACHED = "User has reached the maximum number of containers allowed in this time window."
+
+ADMIN_ACCESS_GRANTED = "Admin access granted."
+USER_ACCESS_GRANTED = "User access granted."
+ACCESS_DENIED = "Access denied. You do not have permission for this operation."
+
+MONGODB_CONNECTION_FAILED = "Failed to connect to MongoDB."

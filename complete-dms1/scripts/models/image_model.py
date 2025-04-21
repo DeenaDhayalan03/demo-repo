@@ -1,6 +1,11 @@
 from pydantic import BaseModel,ConfigDict
 from typing import Optional, Union, Any, Dict, List
 
+class ImageGithubBuildRequest(BaseModel):
+    github_url: str
+    dockerfile_path: Optional[str] = "Dockerfile"  # default path
+    tag: Optional[str] = "default:latest"
+
 
 class ImageBuildRequest(BaseModel):
     path: Optional[str] = None

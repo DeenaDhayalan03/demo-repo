@@ -23,3 +23,4 @@ console_handler.setLevel(logging.DEBUG)
 logger.addHandler(file_handler)
 logger.addHandler(console_handler)
 
+logger.info("Logger initialized successfully")

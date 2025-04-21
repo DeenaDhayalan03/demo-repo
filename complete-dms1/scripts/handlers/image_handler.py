@@ -1,17 +1,24 @@
 import docker
 import re
+import os
+import tempfile
 from fastapi import HTTPException
 from typing import Dict, Any
-from scripts.utils.response_handler import handle_exception
-from scripts.models.image_model import *
+
+from pip._internal.vcs import git
+
+from scripts.models.image_model import ImageBuildRequest, ImageRemoveRequest, ImageGithubBuildRequest
 from scripts.constants.app_constants import *
+from scripts.constants.app_configuration import settings
 
 client = docker.from_env()
 
 def is_valid_docker_tag(tag: str) -> bool:
-    return bool(re.match(r"^[a-z0-9][a-z0-9_.-]*(/[a-z0-9][a-z0-9_.-]*)*(?::[a-zA-Z0-9_.-]+)?$", tag))
 
-def build_image_kwargs(data: ImageBuildRequest):
+    return bool(re.match(r"^[a-z0-9]+([._-]?[a-z0-9]+)*(\/[a-z0-9]+([._-]?[a-z0-9]+)*)*(\:[a-zA-Z0-9_.-]+)?$", tag))
+
+def build_image(data: ImageBuildRequest):
+
     try:
         build_args = data.dict(exclude_unset=True)
 
@@ -23,7 +30,7 @@ def build_image_kwargs(data: ImageBuildRequest):
             if not is_valid_docker_tag(tag):
                 raise HTTPException(status_code=400, detail=INVALID_REQUEST)
         else:
-            build_args["tag"] = "default:latest"
+            build_args["tag"] = settings.DEFAULT_DOCKER_TAG
 
         image, _ = client.images.build(**build_args)
 
@@ -36,7 +43,49 @@ def build_image_kwargs(data: ImageBuildRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=IMAGE_BUILD_FAILURE)
 
-def list_images_with_filters(name: str = None, all: bool = False, filters: Dict[str, Any] = None):
+
+def build_image_from_github(data: ImageGithubBuildRequest):
+    try:
+        temp_dir = tempfile.mkdtemp()
+        repo_url = data.github_url
+        repo_name = repo_url.split("/")[-1].replace(".git", "")  # Extract repo name
+        dockerfile_path = data.dockerfile_path
+
+        git.Repo.clone_from(repo_url, temp_dir)
+
+        dockerfile_full_path = os.path.join(temp_dir, dockerfile_path)
+        if not os.path.exists(dockerfile_full_path):
+            raise HTTPException(status_code=400, detail=f"Dockerfile not found at {dockerfile_path}")
+
+        build_args = {
+            "path": temp_dir,
+            "dockerfile": dockerfile_path,
+            "tag": data.tag
+        }
+
+        image, _ = client.images.build(**build_args)
+
+        for root, dirs, files in os.walk(temp_dir, topdown=False):
+            for file in files:
+                os.remove(os.path.join(root, file))
+            for dir in dirs:
+                os.rmdir(os.path.join(root, dir))
+        os.rmdir(temp_dir)
+
+        return {
+            "message": IMAGE_BUILD_SUCCESS.format(tag=data.tag),
+            "id": image.id,
+            "tags": image.tags or ["<none>:<none>"]
+        }
+
+    except git.exc.GitCommandError as e:
+        raise HTTPException(status_code=400, detail=f"Error cloning GitHub repository: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=IMAGE_BUILD_FAILURE)
+
+
+def list_images(name: str = None, all: bool = False, filters: Dict[str, Any] = None):
+
     try:
         kwargs = {}
         if name is not None:
@@ -47,45 +96,51 @@ def list_images_with_filters(name: str = None, all: bool = False, filters: Dict[
             kwargs["filters"] = filters
 
         images = client.images.list(**kwargs)
+
         return {
             "message": IMAGE_LIST_SUCCESS,
             "images": [{"id": img.id, "tags": img.tags} for img in images]
         }
 
     except Exception as e:
-        handle_exception(e, IMAGE_LIST_RETRIEVED)
-
-docker_logged_in = False
+        raise HTTPException(status_code=500, detail=IMAGE_LIST_RETRIEVED)
 
 def dockerhub_login(username: str, password: str):
-    global docker_logged_in
+
     try:
         client.login(username=username, password=password)
-        docker_logged_in = True
         return {"message": AUTH_LOGIN_SUCCESS}
     except Exception as e:
-        handle_exception(e, AUTH_LOGIN_FAILURE)
+        raise HTTPException(status_code=401, detail=AUTH_LOGIN_FAILURE)
 
 def push_image(local_tag: str, remote_repo: str):
-    if not docker_logged_in:
-        raise HTTPException(status_code=401, detail=UNAUTHORIZED)
 
     try:
         image = client.images.get(local_tag)
         image.tag(remote_repo)
         result = client.images.push(remote_repo)
-        return {"message": IMAGE_PUSH_SUCCESS, "result": result}
-    except Exception as e:
-        handle_exception(e, IMAGE_PUSH_FAILURE)
+
+        return {
+            "message": IMAGE_PUSH_SUCCESS.format(tag=remote_repo),
+            "result": result
+        }
+    except docker.errors.APIError as e:
+        if "unauthorized" in str(e).lower() or "authentication required" in str(e).lower():
+            raise HTTPException(status_code=401, detail=UNAUTHORIZED)
+        raise HTTPException(status_code=500, detail=IMAGE_PUSH_FAILURE)
+    except Exception:
+        raise HTTPException(status_code=500, detail=IMAGE_PUSH_FAILURE)
 
 def pull_image(repository: str, local_tag: str = None):
+
     try:
         image = client.images.pull(repository)
+
         if local_tag:
             image.tag(local_tag)
 
         return {
-            "message": IMAGE_PULL_SUCCESS,
+            "message": IMAGE_PULL_SUCCESS.format(tag=repository),
             "tags": image.tags,
             "retagged_as": local_tag if local_tag else "Not retagged"
         }
@@ -93,17 +148,21 @@ def pull_image(repository: str, local_tag: str = None):
     except docker.errors.APIError as e:
         if "unauthorized" in str(e).lower() or "authentication required" in str(e).lower():
             raise HTTPException(status_code=401, detail=UNAUTHORIZED)
-        handle_exception(e, IMAGE_PULL_FAILURE)
+        raise HTTPException(status_code=500, detail=IMAGE_PULL_FAILURE)
+    except Exception:
+        raise HTTPException(status_code=500, detail=IMAGE_PULL_FAILURE)
 
-def remove_image_with_params(image_name: str, params: ImageRemoveRequest):
+def remove_image(image_name: str, params: ImageRemoveRequest):
+
     try:
         opts = params.dict(exclude_unset=True)
         client.images.remove(image=image_name, **opts)
+
         return {
-            "message": IMAGE_REMOVE_SUCCESS,
+            "message": IMAGE_REMOVE_SUCCESS.format(tag=image_name),
             "used_options": opts
         }
     except docker.errors.ImageNotFound:
         raise HTTPException(status_code=404, detail=IMAGE_NOT_FOUND)
-    except Exception as e:
-        handle_exception(e, IMAGE_REMOVE_FAILURE)
+    except Exception:
+        raise HTTPException(status_code=500, detail=IMAGE_REMOVE_FAILURE)
