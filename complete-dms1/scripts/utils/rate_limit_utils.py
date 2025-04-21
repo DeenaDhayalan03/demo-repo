@@ -5,7 +5,7 @@ from scripts.constants.app_configuration import settings
 
 mongo = MongoDBConnection()
 
-MAX_CONTAINERS_PER_HOUR = settings.max_containers_per_user
+MAX_CONTAINERS_PER_HOUR = settings.DEFAULT_MAX_CONTAINERS_PER_HOUR
 
 def check_rate_limit(user_id: str) -> bool:
     one_hour_ago = datetime.utcnow() - timedelta(hours=1)

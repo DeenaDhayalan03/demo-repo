@@ -6,5 +6,5 @@ logger = logging.getLogger(__name__)
 
 class MongoDBConnection:
     def __init__(self):
-        self.client = MongoClient(settings.MONGODB_URI)
+        self.client = MongoClient(settings.MONGODB_URL)
         self.db = self.client[settings.MONGODB_DATABASE]
