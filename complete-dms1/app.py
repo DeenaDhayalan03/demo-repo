@@ -11,7 +11,6 @@ def create_app() -> FastAPI:
         title="Docker Management API",
         description="APIs to manage Docker Images, Containers, and Volumes",
         version="1.0.0",
-        root_path="/cdms"
     )
 
     app.add_middleware(

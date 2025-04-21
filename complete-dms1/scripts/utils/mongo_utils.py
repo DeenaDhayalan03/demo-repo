@@ -8,3 +8,6 @@ class MongoDBConnection:
     def __init__(self):
         self.client = MongoClient(settings.MONGODB_URL)
         self.db = self.client[settings.MONGODB_DATABASE]
+
+    def get_collection(self, collection_name: str):
+        return self.db[collection_name]
