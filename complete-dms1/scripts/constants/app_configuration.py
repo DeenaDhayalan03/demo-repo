@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     DOCKER_CLIENT_TIMEOUT: int
 
     MONGODB_URL: str
-    DATABASE_NAME: str
+    MONGODB_DATABASE: str
 
     JWT_SECRET: str
     JWT_ALGORITHM: str
