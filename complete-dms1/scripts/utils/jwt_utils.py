@@ -9,7 +9,7 @@ from scripts.constants.app_constants import (
 )
 from scripts.models.jwt_model import TokenData
 
-SECRET_KEY = settings.SECRET_KEY
+SECRET_KEY = settings.JWT_SECRET
 ALGORITHM = settings.JWT_ALGORITHM
 ACCESS_TOKEN_EXPIRE_MINUTES = settings.ACCESS_TOKEN_EXPIRE_MINUTES
 

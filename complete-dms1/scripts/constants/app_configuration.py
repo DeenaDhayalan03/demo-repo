@@ -13,8 +13,10 @@ class Settings(BaseSettings):
     DATABASE_NAME: str
 
     JWT_SECRET: str
-    ALGORITHM: str
+    JWT_ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
+
+
 
     DEFAULT_MAX_CONTAINERS_PER_HOUR: int
 
