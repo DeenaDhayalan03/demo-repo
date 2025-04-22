@@ -1,5 +1,4 @@
-from fastapi import APIRouter, status, Depends, HTTPException
-from scripts.constants.api_endpoints import Endpoints
+from fastapi import APIRouter, status, Depends
 from scripts.handlers.rate_limit_handler import (
     get_rate_limit_handler,
     set_rate_limit_handler,
@@ -7,21 +6,13 @@ from scripts.handlers.rate_limit_handler import (
 )
 from scripts.models.rate_limit_model import RateLimitConfig
 from scripts.logging.logger import logger
-from scripts.utils.jwt_utils import get_current_user_from_token, get_current_user
+from scripts.utils.jwt_utils import get_current_user
 from scripts.models.jwt_model import TokenData
-from fastapi.security import OAuth2PasswordBearer
 from scripts.constants.api_endpoints import Endpoints
 
 
-# oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
-
 rate_limit_router = APIRouter()
 
-# def get_current_user(token: str = Depends(oauth2_scheme)):
-#     user = get_current_user_from_token(token)
-#     if not user:
-#         raise HTTPException(status_code=401, detail="Invalid or expired token")
-#     return user
 
 @rate_limit_router.get(Endpoints.RATE_LIMIT_GET, response_model=RateLimitConfig)
 def get_rate_limit_view(user_id: str, current_user: TokenData = Depends(get_current_user)):

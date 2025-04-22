@@ -6,9 +6,7 @@ from scripts.logging.logger import logger
 from scripts.utils.jwt_utils import get_current_user
 from scripts.models.jwt_model import TokenData
 
-
 container_router = APIRouter()
-
 
 @container_router.post(Endpoints.CONTAINER_CREATE)
 def run_container_view(

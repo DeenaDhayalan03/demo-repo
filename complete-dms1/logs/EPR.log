@@ -64,3 +64,14 @@
 2025-04-22 16:20:06 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
 2025-04-22 16:20:11 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
 2025-04-22 16:20:16 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:27:08 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 18:27:09 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:27:10 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:27:11 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:27:16 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:28:10 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 18:28:11 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:28:12 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:28:13 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:28:14 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:28:15 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
