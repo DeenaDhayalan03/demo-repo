@@ -3,17 +3,12 @@ from scripts.handlers.cont_handler import *
 from scripts.models.cont_model import *
 from scripts.constants.api_endpoints import Endpoints
 from scripts.logging.logger import logger
-from scripts.utils.jwt_utils import get_current_user_from_token
+from scripts.utils.jwt_utils import get_current_user
 from scripts.models.jwt_model import TokenData
 
 
 container_router = APIRouter()
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
-    user = get_current_user_from_token(token)
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-    return user
 
 @container_router.post(Endpoints.CONTAINER_CREATE)
 def run_container_view(

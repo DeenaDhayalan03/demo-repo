@@ -5,25 +5,24 @@ import tempfile
 from fastapi import HTTPException, Depends
 from typing import Dict, Any
 from pip._internal.vcs import git
-from fastapi.security import OAuth2PasswordBearer
-from scripts.constants.api_endpoints import Endpoints
 from scripts.models.image_model import ImageBuildRequest, ImageRemoveRequest, ImageGithubBuildRequest
 from scripts.constants.app_constants import *
 from scripts.constants.app_configuration import settings
 from scripts.utils.jwt_utils import get_current_user_from_token
 
 
-client = docker.from_env()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
+try:
+    client = docker.from_env()
+except Exception as e:
+    print(e)
+    print("Docker is not reachable")
+oauth2_scheme = None #OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
 
 def is_valid_docker_tag(tag: str) -> bool:
-    """Validate Docker image tag format."""
     return bool(re.match(r"^[a-z0-9]+([._-]?[a-z0-9]+)*(\/[a-z0-9]+([._-]?[a-z0-9]+)*)*(\:[a-zA-Z0-9_.-]+)?$", tag))
 
 def build_image(data: ImageBuildRequest, token: str = Depends(oauth2_scheme)):
-    """Build a Docker image."""
     try:
-        # Validate and prepare build arguments
         build_args = data.dict(exclude_unset=True)
 
         if not build_args.get("path") and not build_args.get("fileobj"):

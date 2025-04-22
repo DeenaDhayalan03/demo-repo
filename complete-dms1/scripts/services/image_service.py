@@ -13,19 +13,20 @@ from scripts.handlers.image_handler import (
     dockerhub_login
 )
 from scripts.logging.logger import logger
-from scripts.utils.jwt_utils import get_current_user_from_token
+from scripts.utils.jwt_utils import get_current_user_from_token, get_current_user
 from scripts.models.jwt_model import TokenData
 from scripts.constants.api_endpoints import Endpoints
-from fastapi.security import OAuth2PasswordBearer
+# from fastapi.security import OAuth2PasswordBearer
+from typing import  Annotated
+from scripts.utils.jwt_utils import get_current_user
 
+# oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
-
-def get_current_user(token: str = Depends(oauth2_scheme)):
-    user = get_current_user_from_token(token)
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-    return user
+# def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+#     user = get_current_user_from_token(token)
+#     if not user:
+#         raise HTTPException(status_code=401, detail="Invalid or expired token")
+#     return user
 
 image_router = APIRouter()
 

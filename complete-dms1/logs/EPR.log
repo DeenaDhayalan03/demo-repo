@@ -1,0 +1,66 @@
+2025-04-22 15:50:36 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 15:53:25 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 15:53:27 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:53:28 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:53:29 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:53:32 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:53:33 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:57:41 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 15:57:43 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:57:44 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:57:49 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:57:51 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:57:52 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:58:51 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 15:58:54 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:58:56 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:58:57 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:58:58 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 15:59:00 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:01:45 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 16:01:46 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:01:47 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:01:48 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:01:49 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:01:50 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:02:28 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 16:02:29 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:02:34 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:02:35 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:02:36 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:02:37 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:03:11 | INFO | jwt_service.py:31 | User 'abc' is attempting to log in.
+2025-04-22 16:03:12 | INFO | jwt_handler.py:61 | User 'abc' authenticated successfully
+2025-04-22 16:04:55 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 16:04:56 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:04:58 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:04:59 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:05:00 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:05:03 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:06:20 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 16:06:23 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:06:24 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:06:25 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:06:26 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:06:27 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:14:27 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 16:15:47 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 16:15:50 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:15:53 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:15:55 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:15:56 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:16:02 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:18:15 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 16:18:25 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:18:31 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:18:33 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:18:34 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:18:36 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:18:48 | INFO | jwt_service.py:32 | User 'abc' is attempting to log in.
+2025-04-22 16:18:49 | INFO | jwt_handler.py:61 | User 'abc' authenticated successfully
+2025-04-22 16:20:00 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 16:20:03 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:20:05 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:20:06 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:20:11 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 16:20:16 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.

@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
-from typing import Optional
+from typing import Optional, Annotated
+
+from fastapi.security import HTTPBearer, OAuth2PasswordBearer
 from jose import jwt, JWTError, ExpiredSignatureError
-from fastapi import HTTPException, Request, status
+from fastapi import HTTPException, Request, status, Depends
 from scripts.constants.app_configuration import settings
 from scripts.constants.app_constants import *
 from scripts.models.jwt_model import TokenData
@@ -51,3 +53,11 @@ def get_current_user_from_token(request: Request) -> TokenData:
         return decode_access_token(token)
 
     raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=UNAUTHORIZED)
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/auth/login")
+def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+    print(token)
+    user = decode_access_token(token)
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+    return user

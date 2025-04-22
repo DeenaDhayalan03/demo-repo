@@ -33,7 +33,7 @@ def signup_user_handler(user: UserSignupRequest) -> Token:
     logger.info(f"User '{user.username}' registered successfully")
 
     access_token = create_user_token(user.username, user.role)
-    return Token(access_token=access_token, token_type="bearer", expires_in=3600)  # 1-hour expiration
+    return Token(access_token=access_token, token_type="bearer", expires_in=3600)
 
 
 def login_user_handler(user_login: UserLoginRequest) -> UserLoginResponse:
