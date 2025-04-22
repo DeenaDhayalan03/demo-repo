@@ -81,8 +81,36 @@ from scripts.constants.app_configuration import settings
 from scripts.constants.app_constants import *
 from scripts.models.jwt_model import TokenData
 
-# OAuth2PasswordBearer instance — this enables Swagger "Authorize" button
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")  # << Important: token URL must match your login endpoint
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+SECRET_KEY = settings.JWT_SECRET
+ALGORITHM = settings.JWT_ALGORITHM
+
+def decode_user_token(token: str) -> dict:
+
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+
+        username: str = payload.get("sub")
+        role: str = payload.get("role")
+
+        if username is None or role is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token: missing username or role"
+            )
+
+        return {
+            "username": username,
+            "role": role
+        }
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials"
+        )
+
+
 
 # Settings
 SECRET_KEY = settings.JWT_SECRET
