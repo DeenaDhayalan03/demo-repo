@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.openapi.utils import get_openapi 
+from fastapi.openapi.utils import get_openapi
 from scripts.services.image_service import image_router as image_router
 from scripts.services.cont_service import container_router as cont_router
 from scripts.services.vol_service import volume_router as vol_router
@@ -63,3 +63,5 @@ def create_app() -> FastAPI:
     app.openapi = custom_openapi
 
     return app
+
+

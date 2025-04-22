@@ -15,10 +15,11 @@ from scripts.handlers.image_handler import (
 from scripts.logging.logger import logger
 from scripts.utils.jwt_utils import get_current_user_from_token
 from scripts.models.jwt_model import TokenData
+from scripts.constants.api_endpoints import Endpoints
 from fastapi.security import OAuth2PasswordBearer
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
 
 def get_current_user(token: str = Depends(oauth2_scheme)):
     user = get_current_user_from_token(token)

@@ -16,7 +16,6 @@ client = docker.from_env()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-
 def get_current_user(token: str = Depends(oauth2_scheme)):
     user = decode_access_token(token)
     if not user:
