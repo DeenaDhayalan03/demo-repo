@@ -13,7 +13,6 @@ AUTH_SIGNUP_FAILURE = "User registration failed."
 AUTH_USER_EXISTS = "Username already exists."
 AUTH_LOGIN_SUCCESS = "Login successful."
 AUTH_LOGIN_FAILURE = "Invalid username or password."
-AUTH_LOGOUT_SUCCESS = "User logged out successfully."
 
 AUTH_TOKEN_CREATION_FAILURE = "Failed to create authentication token."
 AUTH_TOKEN_EXPIRED = "Authentication token has expired."

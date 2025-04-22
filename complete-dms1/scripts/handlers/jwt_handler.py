@@ -68,14 +68,3 @@ def login_user_handler(user_login: UserLoginRequest) -> UserLoginResponse:
         expires_in=3600
     )
 
-
-def logout_user_handler(username: str):
-    if not username:
-        logger.warning("Logout failed: No username provided")
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid logout request"
-        )
-
-    logger.info(f"User '{username}' logged out successfully")
-    return {"message": f"User '{username}' logged out successfully"}

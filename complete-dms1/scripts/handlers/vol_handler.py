@@ -9,7 +9,7 @@ from scripts.constants.app_constants import (
     VOLUME_REMOVE_FAILURE,
     VOLUME_NOT_FOUND
 )
-from scripts.utils.jwt_utils import verify_access_token
+from scripts.utils.jwt_utils import decode_access_token
 from scripts.logging.logger import logger
 
 client = docker.from_env()
@@ -18,8 +18,9 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 def get_current_user(token: str = Depends(oauth2_scheme)):
-    user = verify_access_token(token)
+    user = decode_access_token(token)
     if not user:
+        logger.warning("Invalid or expired token")
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
     return user
 
@@ -44,6 +45,9 @@ def create_volume_with_params(data: VolumeCreateRequest, current_user: dict = De
             "labels": volume.attrs.get("Labels")
         }
 
+    except docker.errors.APIError as e:
+        logger.error(f"Docker API error while creating volume: {str(e)}")
+        raise HTTPException(status_code=500, detail=VOLUME_CREATE_FAILURE)
     except Exception as e:
         logger.error(f"Failed to create volume: {str(e)}")
         raise HTTPException(status_code=500, detail=VOLUME_CREATE_FAILURE)
@@ -59,6 +63,7 @@ def remove_volume_with_params(name: str, params: VolumeRemoveRequest, current_us
             )
 
         opts = params.dict(exclude_unset=True)
+
         volume = client.volumes.get(name)
         volume.remove(**opts)
 
@@ -68,7 +73,9 @@ def remove_volume_with_params(name: str, params: VolumeRemoveRequest, current_us
     except docker.errors.NotFound:
         logger.warning(f"Volume '{name}' not found")
         raise HTTPException(status_code=404, detail=VOLUME_NOT_FOUND)
-
+    except docker.errors.APIError as e:
+        logger.error(f"Docker API error while removing volume '{name}': {str(e)}")
+        raise HTTPException(status_code=500, detail=VOLUME_REMOVE_FAILURE)
     except Exception as e:
         logger.error(f"Failed to remove volume '{name}': {str(e)}")
         raise HTTPException(status_code=500, detail=VOLUME_REMOVE_FAILURE)

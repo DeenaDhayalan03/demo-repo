@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.openapi.utils import get_openapi  # 👈 import this
-
+from fastapi.openapi.utils import get_openapi 
 from scripts.services.image_service import image_router as image_router
 from scripts.services.cont_service import container_router as cont_router
 from scripts.services.vol_service import volume_router as vol_router
 from scripts.services.admin_service import admin_router as admin_router
 from scripts.services.rate_limit_service import rate_limit_router as rate_router
 from scripts.services.jwt_service import auth_router as auth_router
+
 
 def create_app() -> FastAPI:
     app = FastAPI(
@@ -28,7 +28,6 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-
     app.include_router(auth_router, prefix="/auth", tags=["Authentication Operations"])
     app.include_router(admin_router, prefix="/admin", tags=["Admin Operations"])
     app.include_router(rate_router, prefix="/rate-limit", tags=["Rate Limit Operations"])
@@ -45,6 +44,7 @@ def create_app() -> FastAPI:
             description="APIs to manage Docker Images, Containers, and Volumes",
             routes=app.routes,
         )
+
         openapi_schema["components"]["securitySchemes"] = {
             "BearerAuth": {
                 "type": "http",
@@ -52,9 +52,11 @@ def create_app() -> FastAPI:
                 "bearerFormat": "JWT",
             }
         }
+
         for path in openapi_schema["paths"].values():
             for method in path.values():
                 method.setdefault("security", [{"BearerAuth": []}])
+
         app.openapi_schema = openapi_schema
         return app.openapi_schema
 

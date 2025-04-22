@@ -2,23 +2,28 @@ import docker
 import re
 import os
 import tempfile
-from fastapi import HTTPException, Depends, Request
+from fastapi import HTTPException, Depends
 from typing import Dict, Any
 from pip._internal.vcs import git
 from fastapi.security import OAuth2PasswordBearer
+from scripts.constants.api_endpoints import Endpoints
 from scripts.models.image_model import ImageBuildRequest, ImageRemoveRequest, ImageGithubBuildRequest
 from scripts.constants.app_constants import *
 from scripts.constants.app_configuration import settings
 from scripts.utils.jwt_utils import get_current_user_from_token
 
+
 client = docker.from_env()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
 
 def is_valid_docker_tag(tag: str) -> bool:
+    """Validate Docker image tag format."""
     return bool(re.match(r"^[a-z0-9]+([._-]?[a-z0-9]+)*(\/[a-z0-9]+([._-]?[a-z0-9]+)*)*(\:[a-zA-Z0-9_.-]+)?$", tag))
 
 def build_image(data: ImageBuildRequest, token: str = Depends(oauth2_scheme)):
+    """Build a Docker image."""
     try:
+        # Validate and prepare build arguments
         build_args = data.dict(exclude_unset=True)
 
         if not build_args.get("path") and not build_args.get("fileobj"):
@@ -44,7 +49,6 @@ def build_image(data: ImageBuildRequest, token: str = Depends(oauth2_scheme)):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=IMAGE_BUILD_FAILURE)
-
 
 def build_image_from_github(data: ImageGithubBuildRequest, token: str = Depends(oauth2_scheme)):
     try:
@@ -88,7 +92,6 @@ def build_image_from_github(data: ImageGithubBuildRequest, token: str = Depends(
     except Exception as e:
         raise HTTPException(status_code=500, detail=IMAGE_BUILD_FAILURE)
 
-
 def list_images(name: str = None, all: bool = False, filters: Dict[str, Any] = None, token: str = Depends(oauth2_scheme)):
     try:
         user = get_current_user_from_token(token)
@@ -112,7 +115,6 @@ def list_images(name: str = None, all: bool = False, filters: Dict[str, Any] = N
     except Exception as e:
         raise HTTPException(status_code=500, detail=IMAGE_LIST_RETRIEVED)
 
-
 def dockerhub_login(username: str, password: str, token: str = Depends(oauth2_scheme)):
     try:
         user = get_current_user_from_token(token)
@@ -122,7 +124,6 @@ def dockerhub_login(username: str, password: str, token: str = Depends(oauth2_sc
         return {"message": AUTH_LOGIN_SUCCESS}
     except Exception as e:
         raise HTTPException(status_code=401, detail=AUTH_LOGIN_FAILURE)
-
 
 def push_image(local_tag: str, remote_repo: str, token: str = Depends(oauth2_scheme)):
     try:
@@ -143,7 +144,6 @@ def push_image(local_tag: str, remote_repo: str, token: str = Depends(oauth2_sch
         raise HTTPException(status_code=500, detail=IMAGE_PUSH_FAILURE)
     except Exception:
         raise HTTPException(status_code=500, detail=IMAGE_PUSH_FAILURE)
-
 
 def pull_image(repository: str, local_tag: str = None, token: str = Depends(oauth2_scheme)):
     try:
@@ -167,7 +167,6 @@ def pull_image(repository: str, local_tag: str = None, token: str = Depends(oaut
         raise HTTPException(status_code=500, detail=IMAGE_PULL_FAILURE)
     except Exception:
         raise HTTPException(status_code=500, detail=IMAGE_PULL_FAILURE)
-
 
 def remove_image(image_name: str, params: ImageRemoveRequest, token: str = Depends(oauth2_scheme)):
     try:

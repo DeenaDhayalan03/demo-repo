@@ -2,7 +2,7 @@ from fastapi import HTTPException, status, Depends
 from scripts.utils.mongo_utils import MongoDBConnection
 from scripts.models.rate_limit_model import RateLimitConfig
 from scripts.logging.logger import logger
-from scripts.utils.jwt_utils import decode_user_token
+from scripts.utils.jwt_utils import decode_access_token
 from fastapi.security import OAuth2PasswordBearer
 from datetime import datetime
 
@@ -11,10 +11,12 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 mongodb = MongoDBConnection()
 
 def get_user_role(token: str = Depends(oauth2_scheme)) -> str:
-    user_data = decode_user_token(token)
+
+    user_data = decode_access_token(token)
     return user_data['role']
 
 def get_rate_limit_handler(user_id: str, role: str = Depends(get_user_role)) -> RateLimitConfig:
+
     if role != "Admin":
         logger.warning(f"Access denied for user '{user_id}' - Insufficient role")
         raise HTTPException(
@@ -46,6 +48,7 @@ def get_rate_limit_handler(user_id: str, role: str = Depends(get_user_role)) -> 
     return rate_limit_config
 
 def set_rate_limit_handler(user_id: str, limit: int, time_window: int, role: str = Depends(get_user_role)) -> dict:
+
     if role != "Admin":
         logger.warning(f"Access denied for user '{user_id}' - Insufficient role")
         raise HTTPException(
@@ -77,6 +80,7 @@ def set_rate_limit_handler(user_id: str, limit: int, time_window: int, role: str
     return {"message": "Rate limit set successfully"}
 
 def update_rate_limit_handler(user_id: str, limit: int, time_window: int, role: str = Depends(get_user_role)) -> dict:
+
     if role != "Admin":
         logger.warning(f"Access denied for user '{user_id}' - Insufficient role")
         raise HTTPException(
@@ -91,9 +95,9 @@ def update_rate_limit_handler(user_id: str, limit: int, time_window: int, role: 
         {"$set": {
             "limit": limit,
             "time_window": time_window,
-            "remaining": limit,  # Reset the remaining value to the full limit
-            "reset_time": datetime.utcnow(),  # Update reset time based on time window
-            "last_reset": datetime.utcnow()  # Update last reset time
+            "remaining": limit,
+            "reset_time": datetime.utcnow(),
+            "last_reset": datetime.utcnow()
         }}
     )
 

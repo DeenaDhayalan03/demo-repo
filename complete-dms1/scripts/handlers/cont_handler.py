@@ -61,7 +61,6 @@ def run_container_advanced(data: ContainerRunAdvancedRequest, token: str = Depen
     except Exception as e:
         raise HTTPException(status_code=500, detail=CONTAINER_CREATE_FAILURE)
 
-
 def list_containers_with_filters(params: ContainerListRequest, token: str = Depends(oauth2_scheme)):
     try:
         kwargs = params.dict(exclude_unset=True)
@@ -84,7 +83,6 @@ def list_containers_with_filters(params: ContainerListRequest, token: str = Depe
     except Exception:
         raise HTTPException(status_code=500, detail=CONTAINER_LIST_FAILURE)
 
-
 def stop_container(name: str, timeout: float = None, token: str = Depends(oauth2_scheme)):
     try:
         container = client.containers.get(name)
@@ -102,7 +100,6 @@ def stop_container(name: str, timeout: float = None, token: str = Depends(oauth2
     except Exception:
         raise HTTPException(status_code=500, detail=CONTAINER_STOP_FAILURE)
 
-
 def start_container(name: str, token: str = Depends(oauth2_scheme)):
     try:
         container = client.containers.get(name)
@@ -118,7 +115,6 @@ def start_container(name: str, token: str = Depends(oauth2_scheme)):
         raise HTTPException(status_code=404, detail=CONTAINER_NOT_FOUND)
     except Exception:
         raise HTTPException(status_code=500, detail=CONTAINER_START_FAILURE)
-
 
 def get_logs_with_params(name: str, params: ContainerLogsRequest, token: str = Depends(oauth2_scheme)) -> ContainerLogsResponse:
     try:
@@ -143,7 +139,6 @@ def get_logs_with_params(name: str, params: ContainerLogsRequest, token: str = D
         raise HTTPException(status_code=404, detail=CONTAINER_NOT_FOUND)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"{CONTAINER_LOGS_FAILURE}: {str(e)}")
-
 
 def remove_container_with_params(name: str, params: ContainerRemoveRequest, token: str = Depends(oauth2_scheme)):
     try:
