@@ -11,10 +11,11 @@ from scripts.constants.app_constants import (
 )
 from scripts.utils.jwt_utils import decode_access_token
 from scripts.logging.logger import logger
+from scripts.constants.api_endpoints import Endpoints
 
 client = docker.from_env()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
 
 def get_current_user(token: str = Depends(oauth2_scheme)):
     user = decode_access_token(token)

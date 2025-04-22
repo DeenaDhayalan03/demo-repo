@@ -26,12 +26,14 @@ from scripts.constants.app_constants import (
 from scripts.utils.jwt_utils import get_current_user_from_token
 from datetime import datetime
 from scripts.utils.rate_limit_utils import check_rate_limit
+from scripts.constants.api_endpoints import Endpoints
+
 
 
 client = docker.from_env()
 mongo = MongoDBConnection()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
 
 def run_container_advanced(data: ContainerRunAdvancedRequest, token: str = Depends(oauth2_scheme)):
     try:

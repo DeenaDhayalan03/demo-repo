@@ -1,5 +1,4 @@
 from fastapi import HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm
 from scripts.models.jwt_model import UserSignupRequest, Token, UserLoginRequest, UserLoginResponse
 from scripts.utils.jwt_utils import create_user_token
 from scripts.utils.mongo_utils import MongoDBConnection

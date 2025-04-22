@@ -6,6 +6,7 @@ from scripts.logging.logger import logger
 from scripts.utils.jwt_utils import get_current_user_from_token
 from scripts.models.jwt_model import TokenData
 
+
 container_router = APIRouter()
 
 def get_current_user(token: str = Depends(oauth2_scheme)):

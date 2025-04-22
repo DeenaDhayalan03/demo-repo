@@ -4,8 +4,10 @@ from scripts.utils.mongo_utils import MongoDBConnection
 from scripts.utils.jwt_utils import get_current_user_from_token
 from scripts.constants.app_constants import USER_COLLECTION, CONTAINER_COLLECTION, USER_NOT_FOUND
 from scripts.logging.logger import logger
+from scripts.constants.api_endpoints import Endpoints
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
 
 mongo = MongoDBConnection()
 

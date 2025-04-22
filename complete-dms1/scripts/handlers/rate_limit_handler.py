@@ -5,8 +5,10 @@ from scripts.logging.logger import logger
 from scripts.utils.jwt_utils import decode_access_token
 from fastapi.security import OAuth2PasswordBearer
 from datetime import datetime
+from scripts.constants.api_endpoints import Endpoints
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
 
 mongodb = MongoDBConnection()
 

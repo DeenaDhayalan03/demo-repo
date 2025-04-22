@@ -9,6 +9,7 @@ from scripts.constants.api_endpoints import Endpoints
 from scripts.logging.logger import logger
 from scripts.utils.jwt_utils import get_current_user_from_token
 
+
 admin_router = APIRouter()
 
 
