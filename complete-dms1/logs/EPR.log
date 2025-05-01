@@ -75,3 +75,44 @@
 2025-04-22 18:28:13 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
 2025-04-22 18:28:14 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
 2025-04-22 18:28:15 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:29:50 | INFO | jwt_service.py:17 | User 'abc' is attempting to log in.
+2025-04-22 18:29:50 | INFO | jwt_handler.py:61 | User 'abc' authenticated successfully
+2025-04-22 18:30:09 | INFO | image_service.py:28 | User 'abc' is attempting to build an image with tag: string
+2025-04-22 18:30:09 | ERROR | image_service.py:31 | Error building image with tag string: 'TokenData' object has no attribute 'access_token'
+2025-04-22 18:30:25 | INFO | image_service.py:37 | User 'abc' is attempting to build an image from GitHub repository: string
+2025-04-22 18:30:25 | ERROR | image_service.py:40 | Error building image from GitHub repository string: 'TokenData' object has no attribute 'access_token'
+2025-04-22 18:31:12 | INFO | vol_service.py:19 | Authenticated user 'abc' is requesting to create a volume with data: name='string' driver='string' driver_opts={'additionalProp1': {}} labels={'additionalProp1': 'string', 'additionalProp2': 'string', 'additionalProp3': 'string'}
+2025-04-22 18:31:12 | ERROR | vol_handler.py:55 | Failed to create volume: 'TokenData' object is not subscriptable
+2025-04-22 18:31:12 | ERROR | vol_service.py:22 | Error creating volume: 500: Failed to create Docker volume.
+2025-04-22 18:32:37 | INFO | jwt_service.py:17 | User 'deena' is attempting to log in.
+2025-04-22 18:32:38 | INFO | jwt_handler.py:61 | User 'deena' authenticated successfully
+2025-04-22 18:50:59 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 18:51:00 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:51:01 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:51:02 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:51:03 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:51:04 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:51:33 | INFO | jwt_service.py:17 | User 'deena' is attempting to log in.
+2025-04-22 18:51:34 | INFO | jwt_handler.py:61 | User 'deena' authenticated successfully
+2025-04-22 18:51:48 | INFO | jwt_service.py:17 | User 'deena' is attempting to log in.
+2025-04-22 18:51:49 | INFO | jwt_handler.py:61 | User 'deena' authenticated successfully
+2025-04-22 18:55:17 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 18:55:18 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:55:19 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:55:20 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:55:21 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:55:22 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:56:02 | INFO | jwt_service.py:17 | User 'deena' is attempting to log in.
+2025-04-22 18:56:02 | INFO | jwt_handler.py:61 | User 'deena' authenticated successfully
+2025-04-22 18:56:21 | INFO | jwt_service.py:17 | User 'deena' is attempting to log in.
+2025-04-22 18:56:22 | INFO | jwt_handler.py:61 | User 'deena' authenticated successfully
+2025-04-22 18:57:26 | INFO | logger.py:26 | Logger initialized successfully
+2025-04-22 18:57:27 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:57:28 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:57:30 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:57:31 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:57:32 | INFO | mongo_utils.py:12 | Connected successfully to MongoDB Atlas.
+2025-04-22 18:57:51 | INFO | jwt_service.py:17 | User 'deena' is attempting to log in.
+2025-04-22 18:57:52 | INFO | jwt_handler.py:61 | User 'deena' authenticated successfully
+2025-04-22 18:58:05 | INFO | jwt_service.py:17 | User 'deena' is attempting to log in.
+2025-04-22 18:58:06 | INFO | jwt_handler.py:61 | User 'deena' authenticated successfully

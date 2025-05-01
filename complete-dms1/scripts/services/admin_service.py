@@ -7,11 +7,12 @@ from scripts.handlers.admin_handler import (
 )
 from scripts.constants.api_endpoints import Endpoints
 from scripts.logging.logger import logger
-from scripts.utils.jwt_utils import get_current_user_from_token
+from scripts.utils.jwt_utils import get_current_user
+from scripts.models.jwt_model import TokenData
 
 admin_router = APIRouter()
 
-def admin_required(user: dict = Depends(get_current_user_from_token)):
+def admin_required(user: dict = Depends(get_current_user)):
     if user["role"] != "Admin":
         logger.warning(f"User '{user['username']}' attempted to access restricted route without admin privileges")
         raise HTTPException(
@@ -33,13 +34,13 @@ def get_user_info(username: str, user: dict = Depends(admin_required)):
     return get_user_details(username, user)
 
 
-@admin_router.delete(Endpoints.ADMIN_USER_DELETE, status_code=status.HTTP_200_OK)
-def delete_user_account(username: str, user: dict = Depends(admin_required)):
-    logger.info(f"Request to delete user '{username}'")
-    return delete_user(username, user)
+# @admin_router.delete(Endpoints.ADMIN_USER_DELETE, status_code=status.HTTP_200_OK)
+# def delete_user_account(username: str, current_user: dict = Depends(admin_required)):
+#     logger.info(f"Request to delete user '{username}'")
+#     return delete_user(username, current_user)
 
 
-@admin_router.get(Endpoints.ADMIN_CONTAINERS_LIST, status_code=status.HTTP_200_OK)
-def list_containers(user: dict = Depends(admin_required)):
-    logger.info("Request to fetch all containers")
-    return list_all_containers(user)
+# @admin_router.get(Endpoints.ADMIN_CONTAINERS_LIST, status_code=status.HTTP_200_OK)
+# def list_containers(user: dict = Depends(admin_required)):
+#     logger.info("Request to fetch all containers")
+#     return list_all_containers(user)

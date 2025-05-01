@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import Optional
-
 from scripts.models.image_model import ImageBuildRequest, ImageRemoveRequest, ImageGithubBuildRequest
 from scripts.constants.api_endpoints import Endpoints
 from scripts.handlers.image_handler import (
@@ -17,7 +16,6 @@ from scripts.utils.jwt_utils import get_current_user_from_token, get_current_use
 from scripts.models.jwt_model import TokenData
 from scripts.constants.api_endpoints import Endpoints
 from scripts.utils.jwt_utils import get_current_user
-
 
 image_router = APIRouter()
 

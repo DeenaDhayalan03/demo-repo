@@ -1,5 +1,11 @@
+import os
 import logging
 from scripts.constants.app_constants import AppConstants
+
+LOG_DIR = "logs"
+LOG_FILE = os.path.join(LOG_DIR, "EPR.log")
+
+os.makedirs(LOG_DIR, exist_ok=True)
 
 logging.basicConfig(
     filename="logs/EPR.log",

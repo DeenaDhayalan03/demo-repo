@@ -1,17 +1,17 @@
 from fastapi import HTTPException, Request, Depends
 from fastapi.security import OAuth2PasswordBearer
 from scripts.utils.mongo_utils import MongoDBConnection
-from scripts.utils.jwt_utils import get_current_user_from_token
+from scripts.utils.jwt_utils import get_current_user
 from scripts.constants.app_constants import USER_COLLECTION, CONTAINER_COLLECTION, USER_NOT_FOUND
 from scripts.logging.logger import logger
 from scripts.constants.api_endpoints import Endpoints
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Endpoints.AUTH_LOGIN)
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/auth/login")
 
 mongo = MongoDBConnection()
 
-def admin_role_required(user: dict = Depends(get_current_user_from_token)):
+def admin_role_required(user: dict = Depends(get_current_user)):
     if user['role'] != 'Admin':
         logger.warning(f"User '{user['username']}' attempted to access admin function without admin privileges.")
         raise HTTPException(status_code=403, detail="You don't have permission to perform this action.")
